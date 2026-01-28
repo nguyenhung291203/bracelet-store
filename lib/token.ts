@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken"
+import { Role } from "./generated/prisma/enums"
 
 
 const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET!
@@ -14,7 +15,7 @@ if (Number.isNaN(ACCESS_EXPIRES_IN_MS) || Number.isNaN(REFRESH_EXPIRES_IN_MS)) {
 
 export interface TokenPayload {
   userId: number
-  role: string
+  role: Role
 }
 
 export function signAccessToken(payload: TokenPayload) {
