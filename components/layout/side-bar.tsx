@@ -17,7 +17,7 @@ const menu = [
         label: "Shop",
         items: [
             { label: "Trang chủ", href: "/", icon: Home },
-            { label: "Sản phẩm", href: "/shop/products", icon: ShoppingBag },
+            { label: "Sản phẩm", href: "/products", icon: ShoppingBag },
             { label: "Danh mục", href: "/shop/categories", icon: List },
         ],
     },

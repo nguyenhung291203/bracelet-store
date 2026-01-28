@@ -1,11 +1,8 @@
+import { Category } from "@/types/category.type"
 import { ApiResponse } from "./api-response"
 import { apiFetch } from "./http"
 
-export type Category = {
-  id: string
-  name: string
-  slug: string
-}
+
 
 export const categoryApi = {
   getAll() {

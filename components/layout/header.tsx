@@ -1,34 +1,40 @@
-// components/layout/Header.tsx
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+"use client";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 export default function Header() {
-    return (
-        <header className="h-14 border-b flex items-center justify-between px-6">
-            <h1 className="font-semibold">Dashboard</h1>
+  const { setTheme } = useTheme();
 
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="p-0">
-                        <Avatar className="h-8 w-8">
-                            <AvatarFallback>AD</AvatarFallback>
-                        </Avatar>
-                    </Button>
-                </DropdownMenuTrigger>
+  return (
+    <header className="h-14 border-b flex items-center justify-between px-6">
+      <h1 className="font-semibold">Dashboard</h1>
 
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">
-                        Logout
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        </header>
-    )
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme("light")}>
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
+            Dark
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </header>
+  );
 }
