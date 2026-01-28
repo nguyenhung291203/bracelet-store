@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,10 +27,10 @@ export default function Header() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setTheme("light")}>
-            Light
+            Sáng
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setTheme("dark")}>
-            Dark
+            Tối
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
