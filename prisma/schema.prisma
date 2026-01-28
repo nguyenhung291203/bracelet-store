@@ -170,3 +170,56 @@ model Review {
 
   @@map("reviews")
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique @db.VarChar(255)
+  fullName String @db.VarChar(100)
+  password String @db.VarChar(255)
+
+  role Role @default(CUSTOMER)
+
+  createdAt DateTime @default(now())
+  createdBy Int?
+
+  updatedAt DateTime? @updatedAt
+  updatedBy Int?
+
+  deletedAt DateTime?
+  deletedBy Int?
+  isDeleted Boolean   @default(false)
+
+  tokens Token[]
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+  CUSTOMER
+}
+model Token {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  token     String    @db.Text
+  type      TokenType
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  createdBy Int?
+  updatedAt DateTime? @updatedAt
+  updatedBy Int?
+  deletedAt DateTime?
+  deletedBy Int?
+  isDeleted Boolean   @default(false)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("tokens")
+}
+
+
+enum TokenType {
+  REFRESH
+  ACCESS
+}
