@@ -27,7 +27,17 @@ export const authOptions = {
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { 
+            email: credentials.email,
+            isDeleted: false, 
+          },
+          select: {
+            id: true,
+            email: true,
+            fullName: true,
+            role: true,
+            password: true,
+          },
         });
 
         if (!user) {
@@ -51,6 +61,7 @@ export const authOptions = {
         const accessToken = signAccessToken(payload);
         const refreshToken = signRefreshToken(payload);
 
+        // ✅ Return only available fields
         return {
           id: user.id.toString(),
           email: user.email,
@@ -64,20 +75,33 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.userId = user.id;
+        token.email = user.email;
+        token.name = user.name;
         token.role = user.role;
+        token.createdAt = user.createdAt;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
       }
+
+      if (trigger === "update" && session) {
+        token = { ...token, ...session };
+      }
+
       return token;
     },
 
     async session({ session, token }) {
       session.user.id = token.userId as number;
+      session.user.email = token.email as string;
+      session.user.name = token.name as string;
       session.user.role = token.role as Role;
+      session.user.createdAt = token.createdAt as string;
       session.accessToken = token.accessToken as string;
+      session.refreshToken = token.refreshToken as string;
+      
       return session;
     },
   },

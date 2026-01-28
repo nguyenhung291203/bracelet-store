@@ -6,9 +6,9 @@ const AUTH_PAGES = ["/login", "/register"]
 const PUBLIC_PAGES = ["/shop"]
 
 const ROLE_ROUTES = {
-  ADMIN: "/admin/dashboard",
+  ADMIN: "/require/dashboard",
   CUSTOMER: "/shop",
-  EMPLOYEE: "/seller/dashboard",
+  EMPLOYEE: "/require/dashboard",
 } as const
 
 export async function proxy(req: NextRequest) {
