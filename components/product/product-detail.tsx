@@ -5,6 +5,9 @@ import { Product } from "@/types/product.type";
 import Image from "next/image";
 import clsx from "clsx";
 import { SizeGuideDialog } from "./size-guide-dialog";
+import { Button } from "../ui/button";
+import { CreditCard, ShoppingCart } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 interface ProductDetailProps {
   product: Product;
@@ -77,7 +80,27 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       {/* Info */}
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">{product.name}</h1>
-
+        {product.categories?.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {product.categories.map((cat) => (
+              <Badge
+                key={cat.id}
+                variant="secondary"
+                className="
+          rounded-full
+          px-3 py-1
+          text-xs
+          hover:bg-black hover:text-white
+          dark:hover:bg-white dark:hover:text-black
+          transition
+          cursor-pointer
+        "
+              >
+                {cat.name}
+              </Badge>
+            ))}
+          </div>
+        )}
         <div className="text-2xl font-bold">
           {selectedVariant.price.toLocaleString()}₫
         </div>
@@ -131,6 +154,38 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         <p className="text-sm text-muted-foreground">
           Còn {selectedVariant.quantity} sản phẩm
         </p>
+
+        <div className="flex gap-3 pt-2">
+          <Button
+            variant="outline"
+            className="
+      flex-1
+      flex items-center gap-2
+      border-border
+      text-foreground
+      hover:bg-accent hover:text-accent-foreground
+    "
+            disabled={selectedVariant.quantity === 0}
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Thêm vào giỏ hàng
+          </Button>
+
+          <Button
+            className="
+      flex-1
+      flex items-center gap-2
+      bg-black text-white
+      hover:bg-black/90
+      dark:bg-white dark:text-black
+      dark:hover:bg-white/90
+    "
+            disabled={selectedVariant.quantity === 0}
+          >
+            <CreditCard className="h-4 w-4" />
+            Mua ngay
+          </Button>
+        </div>
 
         <div className="pt-4 border-t">
           <p className="text-sm text-muted-foreground">{product.description}</p>
