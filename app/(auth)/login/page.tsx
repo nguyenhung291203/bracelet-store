@@ -21,11 +21,11 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // app/login/page.tsx
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // validate
     if (!email || !password) {
       setError("Vui lòng nhập email và mật khẩu");
       return;
@@ -39,14 +39,24 @@ export default function LoginPage() {
       redirect: false,
     });
 
-    setLoading(false);
-    console.log(res)
+    console.log("Login result:", res);
+
     if (res?.error) {
+      setLoading(false);
       setError("Email hoặc mật khẩu không chính xác");
       return;
     }
 
-    router.replace(redirect);
+    if (res?.ok) {
+      // ✅ Chờ session được set
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Navigate
+      router.push(redirect);
+      router.refresh(); // ✅ Quan trọng: refresh để proxy check lại token
+    } else {
+      setLoading(false);
+    }
   };
 
   return (

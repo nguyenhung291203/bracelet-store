@@ -1,3 +1,4 @@
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
@@ -6,8 +7,10 @@ import { signAccessToken, signRefreshToken } from "@/lib/token";
 import { Role } from "@/lib/generated/prisma/enums";
 
 export const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
+  
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
 
   providers: [
@@ -85,5 +88,4 @@ export const authOptions = {
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
