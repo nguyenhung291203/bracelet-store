@@ -14,15 +14,21 @@ import {
 import CategorySidebar from "@/components/category/category-sidebar";
 import PriceRangeFilter from "@/components/price-range-filter";
 import { categoryApi } from "@/lib/api/category-api";
+import { productApi } from "@/lib/api/product-api";
+import ProductCard from "@/components/product/product-card";
 
 export default async function Page() {
-      const { data: categories = [] } = await categoryApi.getAll();
-    
+  const { data: categories = [] } = await categoryApi.getAll();
+  const { data: products = [] } = await productApi.getAll();
   return (
     <div className="px-6 py-6 ">
       <div className="grid grid-cols-12 gap-6">
         <aside className="col-span-3 flex flex-col gap-4">
-          <CategorySidebar title="Danh mục" categories={categories.splice(0,10)} activeId={categories[0].id} />
+          <CategorySidebar
+            title="Danh mục"
+            categories={categories.splice(0, 10)}
+            activeId={categories[0].id}
+          />
           <PriceRangeFilter />
         </aside>
 
@@ -45,15 +51,8 @@ export default async function Page() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div
-                key={i}
-                className="
-                  h-64 rounded-lg border
-                  bg-muted/30
-                  animate-pulse
-                "
-              />
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
           <Pagination>

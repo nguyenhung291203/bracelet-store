@@ -14,7 +14,7 @@ export const categoryApi = {
   },
 
   create(data: { name: string }) {
-    return apiFetch<Category>("/api/categories", {
+    return apiFetch<Category>("/categories", {
       method: "POST",
       body: JSON.stringify(data),
     })
