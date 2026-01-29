@@ -9,6 +9,7 @@ import {
   ShoppingCart,
   Package,
   Settings,
+  User
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Role } from "@/lib/generated/prisma/enums";
@@ -74,6 +75,7 @@ import { Role } from "@/lib/generated/prisma/enums";
       label: "Quản trị",
       items: [
         { label: "Dashboard", href: "/require/dashboard", icon: Settings },
+        { label: "Tài khoản", href: "/require/accounts", icon: User },
         { label: "Sản phẩm", href: "/require/products", icon: ShoppingBag },
         { label: "Danh mục", href: "/require/categories", icon: List },
         { label: "Đơn hàng", href: "/require/orders", icon: Package },
