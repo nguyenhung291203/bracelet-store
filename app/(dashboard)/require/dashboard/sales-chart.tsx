@@ -32,7 +32,7 @@ const chartData = [
 const chartConfig = {
   revenue: {
     label: "Doanh thu",
-    color: "hsl(var(--chart-1))",
+    color: "#3b82f6", // Tailwind blue-500
   },
 } satisfies ChartConfig;
 
