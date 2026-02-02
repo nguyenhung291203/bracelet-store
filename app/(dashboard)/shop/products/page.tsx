@@ -51,7 +51,7 @@ export default async function Page() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            {products.map((product) => (
+            {products.splice(0, 6).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
