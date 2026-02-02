@@ -14,7 +14,7 @@ export async function GET() {
         ratingAvg: true,
         sold: true,
         images: true,
-
+        createdAt:true,
         variants: {
           where: {
             isDeleted: false,
