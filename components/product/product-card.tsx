@@ -88,7 +88,6 @@ export default function ProductCard({ product }: Props) {
         </div>
 
         <div className="text-xs text-muted-foreground">
-          {product.variants.length} phiên bản ·{" "}
           {quantity} sản phẩm
         </div>
       </div>
